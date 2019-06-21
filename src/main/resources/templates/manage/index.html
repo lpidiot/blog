@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理首页</title>
+    <style type="text/css">
+        .hand {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-default navbar-static-top navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="../index" class="navbar-brand hand">Blog主站</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#">开始记录</a></li>
+                <li><a href="article">文章管理</a></li>
+                <li class="dropdown"><a class="dropdown-toggle hand" data-toggle="dropdown"> 数据管理<span
+                        class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">迁入(hexo)</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">迁出(hexo)</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container">
+    <div id="editormd">
+        <textarea style="display:none;" name="Content"></textarea>
+    </div>
+</div>
+</body>
+
+<!--<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>-->
+
+
+<!--
+<link rel="stylesheet" href="../webjars/bootstrap/css/bootstrap.min.css"/>
+<script src="../webjars/jquery/jquery.min.js"></script>
+<script src="../webjars/bootstrap/js/bootstrap.min.js"></script>-->
+
+
+<link rel="stylesheet" href="../statics/bootstrap-3.3.7-dist/css/bootstrap.css">
+<link rel="stylesheet" href="../statics/editor.md-master/css/editormd.css">
+<script src="../statics/js/jquery.min.js"></script>
+<script src="../statics/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script src="../statics/marked-master/marked.min.js"></script>
+<script src="../statics/editor.md-master/editormd.js"></script>
+
+<script type="application/javascript">
+    var editor;
+    editor = editormd("editormd", {
+        width: "99%",
+        height: "600px",
+        autoHeightEnabled: true,
+        path: '../statics/editor.md-master/lib/',
+        //theme : "dark",
+        //previewTheme : "dark",
+        //editorTheme : "pastel-on-dark",
+        markdown: '',
+        codeFold: true,
+        //syncScrolling : false,
+        saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
+        searchReplace: true,
+        //watch : false,                // 关闭实时预览
+        htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+        //toolbar  : false,             //关闭工具栏
+        //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+        emoji: true,
+        taskList: true,
+        tocm: true,         // Using [TOCM]
+        tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+        flowChart: true,             // 开启流程图支持，默认关闭
+        sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+        //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+        //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+        //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+        //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+        //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+        imageUpload: true,
+        imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+        imageUploadURL: "./php/upload.php",
+        toolbarAutoFixed: true,
+        //toolbarIcons:'mini',
+        toolbarIcons: function () {
+            // Or return editormd.toolbarModes[name]; // full, simple, mini
+            // Using "||" set icons align right.
+
+            return ["undo", "redo", "|", "bold", "del", "italic", "quote", "ucwords", "|", "list-ul", "list-ol", "hr", "|", "link", "image", "preformatted-text", "code-block", "table", "datetime", "emoji", "html-entities", "||", "preview", "clear", "search", "|", "watch", "fullscreen", "help", "addHead", "submit", "editDetail"]
+        },
+        toolbarIconsClass: {
+            testIcon: "fa-gears",  // 指定一个FontAawsome的图标类
+            addHead: "fa-flag",
+            submit: "fa-save",
+            editDetail: "fa-edit"
+        },
+        toolbarIconTexts: {
+            addHead: "添加头",// 如果没有图标，则可以这样直接插入内容，可以是字符串或HTML标签
+            submit: "提交",
+            editDetail: "编辑信息"
+
+        },
+
+        // 用于增加自定义工具栏的功能，可以直接插入HTML标签，不使用默认的元素创建图标
+        toolbarCustomIcons: {},
+
+        // 自定义工具栏按钮的事件处理
+        toolbarHandlers: {
+            /**
+             * @param {Object}      cm         CodeMirror对象
+             * @param {Object}      icon       图标按钮jQuery元素对象
+             * @param {Object}      cursor     CodeMirror的光标对象，可获取光标所在行和位置
+             * @param {String}      selection  编辑器选中的文本
+             */
+            addHead: function (cm, icon, cursor, selection) {
+
+                //var cursor    = cm.getCursor();     //获取当前光标对象，同cursor参数
+                //var selection = cm.getSelection();  //获取当前选中的文本，同selection参数
+
+                // 如果当前没有选中的文本，将光标移到要输入的位置
+                if (selection === "") {
+                    cm.setCursor(0, 0);
+                }
+                // 替换选中文本，如果没有选中文本，则直接插入
+                cm.replaceSelection('插入hexo头' + '\r\n' + '\r\n');
+                console.log(cm);
+
+                // this == 当前editormd实例
+                //console.log("testIcon =>", this, cm, icon, cursor, selection);
+            },
+            editDetail: function (cm, icon, cursor, selection) {
+                $('#myModal').modal('show');
+            },
+            submit: function (cm, icon, cursor, selection) {
+                var title = $('#title').val();
+                var tag = $('#title').val();
+                var category = $('#title').val();
+                var content = $('.editormd-markdown-textarea').val();
+                if (title == '') {
+                    alert('null');
+                    return;
+                }
+                $.ajax({
+                    url: 'save',
+                    type: 'post',
+                    cache: false,
+                    data: {
+                        title: title,
+                        tag: tag,
+                        category: category,
+                        content: content
+                    },
+                    success: function (result) {
+                        console.log(result)
+                    },
+                    fail: function (result) {
+
+                    }
+                });
+
+
+            }
+        },
+
+        lang: {
+            toolbar: {
+                file: "上传文件",
+                addHead: '添加头',            // 自定义按钮的提示文本，即title属性
+                submit: '提交',
+                editDetail: '编辑信息'
+            }
+        },
+        onload: function () {
+            //console.log('onload', this);
+            //this.fullscreen();
+            //this.unwatch();
+            //this.watch().fullscreen();
+
+            //this.setMarkdown("#PHP");
+            //this.width("100%");
+            //this.height(480);
+            //this.resize("100%", 640);
+        }
+    });
+</script>
+
+
+<div id="myModal" class="modal fade" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal" aria-label="close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h3>填写相关信息</h3>
+            </div>
+            <div class="modal-body">
+                <div style="margin: 0 30px;">
+                    <form id="detailForm" class="form-horizontal">
+                        <div class="form-group">
+                            <label>标题</label>
+                            <input class="form-control" id="title" name="title"/>
+                        </div>
+                        <div class="form-group">
+                            <label>标签</label>
+                            <input class="form-control" id="tag" name="tag"/>
+                        </div>
+                        <div class="form-group">
+                            <label>分类</label>
+                            <input class="form-control" id="category" name="category"/>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
