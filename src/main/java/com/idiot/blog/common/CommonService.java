@@ -4,6 +4,7 @@ import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
@@ -42,10 +43,10 @@ public class CommonService<T,ID> {
     public List<T> findAll(Specification spec){
         return repository.findAll(spec);
     }
-    public Page<T> findAll(Specification spec, Pageable pageable) {
-        return repository.findAll(spec,pageable);
+    public List<T> findAll(Specification spec, Pageable pageable) {
+        return repository.findAll(spec,pageable).getContent();
     }
-    public Page<T> findAll(Pageable pageable) {
-        return repository.findAll(pageable);
+    public List<T> findAll(Pageable pageable) {
+        return repository.findAll(pageable).getContent();
     }
 }

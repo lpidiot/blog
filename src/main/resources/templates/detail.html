@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>响应式简单个性个人博客模板</title>
+    <title>博客</title>
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
     <link rel="stylesheet" type="text/css" href="statics/css/index.css" media="all"/>
@@ -93,9 +93,9 @@
 <header id="masthead" class="overlay animated from-bottom" itemprop="brand" itemscope
         itemtype="http://schema.org/Brand">
     <div class="site-branding text-center">
-        <a href="">
+        <a href="index">
             <figure>
-                <img class="custom-logo avatar" src="statics/images/omikron.png"/>
+                <img class="custom-logo avatar" src="statics/images/e.jpg"/>
             </figure>
         </a>
         <h3 class="blog-description"><p>This is beauty</p></h3>
@@ -138,7 +138,7 @@
                     <h1 class="post_title" data-th-text="${article.title}">给大家介绍一下</h1>
                 </header>
                 <div id="content" class="post-body js-gallery">
-                内容...
+                    内容...
                 </div>
                 <div class="meta split split--responsive cf">
                     <div class="split__title">
@@ -157,22 +157,22 @@
         <path d="M0 0 L50 100 L100 0 Z"></path>
     </svg>
     <!--分享区-->
-  <!--  <div id="social">
-        <ul>
-            <li>
-                <a href="" title="qzone" target="_blank"><i class="iconfont">&#xe67f;</i></a>
-            </li>
-            <li>
-                <a href="" title="weibo" target="_blank"><i class="iconfont">&#xe680;</i></a>
-            </li>
-            <li>
-                <a href="" title="douban" target="_blank"><i class="iconfont">&#xe681;</i></a>
-            </li>
-            <li>
-                <a href="" title="twitter" target="_blank"><i class="iconfont">&#xe683;</i></a>
-            </li>
-        </ul>
-    </div>-->
+    <!--  <div id="social">
+          <ul>
+              <li>
+                  <a href="" title="qzone" target="_blank"><i class="iconfont">&#xe67f;</i></a>
+              </li>
+              <li>
+                  <a href="" title="weibo" target="_blank"><i class="iconfont">&#xe680;</i></a>
+              </li>
+              <li>
+                  <a href="" title="douban" target="_blank"><i class="iconfont">&#xe681;</i></a>
+              </li>
+              <li>
+                  <a href="" title="twitter" target="_blank"><i class="iconfont">&#xe683;</i></a>
+              </li>
+          </ul>
+      </div>-->
     <!--/分享区-->
     <div id="panel">
         <div class="comment-area">
@@ -275,19 +275,23 @@
 </div>
 <div class="navpost-part">
     <div id="NextPrevPosts">
-        <div class="prev" data-aos="slide-right" data-aos-delay="1.5s">
+        <div class="prev" data-aos="slide-right" data-aos-delay="1.5s"
+             data-th-if="${lessThan!=null&&lessThan!=''&&#lists.size(lessThan)>0}">
             <div class="arrow"><i class="iconfont">&#xe625;</i></div>
             <div class="preview">
-                <img class="pull-left featuredImg" src="statics/images/97a354cb9519f97e84139f26017386026b3fd7f517b96-DCDbdE-250x250.jpeg"
-                    />
-                <a class="pull-left preview-content bold" href="" ><span>《别哭妈妈》</span></a>
+                <img class="pull-left featuredImg"
+                     src="statics/images/no-image.png"/>
+                <a class="pull-left preview-content bold" data-th-href="${'detail?id='+lessThan.id}"><span
+                        data-th-text="${lessThan.title}">《别哭妈妈》</span></a>
             </div>
         </div>
-        <div class="next" data-aos="slide-left" data-aos-delay="1.5s">
+        <div class="next" data-aos="slide-left" data-aos-delay="1.5s"
+             data-th-if="${greaterThan!=null&&greaterThan!=''&&#lists.size(greaterThan)>0}">
             <div class="arrow"><i class="iconfont">&#xe623;</i></div>
             <div class="preview">
                 <img class="pull-right featuredImg" src="statics/images/no-image.png"/>
-                <a class="pull-right preview-content bold" href="#"><span>重构图像样式测试</span></a>
+                <a class="pull-right preview-content bold" data-th-href="${'detail?id='+greaterThan.id}"><span
+                        data-th-text="${greaterThan.title}">重构图像样式测试</span></a>
             </div>
         </div>
     </div>
@@ -345,7 +349,7 @@
         }
     };
     var content = ('[[${article.content}]]');
-    document.getElementById('content').innerHTML =marked(content);
+    document.getElementById('content').innerHTML = marked(content);
 </script>
 </body>
 

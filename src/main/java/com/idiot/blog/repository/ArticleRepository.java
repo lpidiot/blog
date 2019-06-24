@@ -4,6 +4,8 @@ import com.idiot.blog.common.CommonRepository;
 import com.idiot.blog.entity.Article;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @InterfaceName:ArticleRepository
  * @Description:TODO
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Repository;
  **/
 @Repository
 public interface ArticleRepository extends CommonRepository<Article,Integer> {
-    public Article findByIdLessThan(Integer id);
-    public Article findByIdGreaterThan(Integer id);
+    public List<Article> findByIdLessThan(Integer id);
+    public List<Article> findByIdGreaterThan(Integer id);
+    public List<Article> findAllByOrderByTimeDesc();
 }
