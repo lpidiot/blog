@@ -19,4 +19,8 @@ public class ArticleService extends CommonService<Article,Integer> {
     public Article findByIdLessThan(Integer id){
         return repository.findByIdLessThan(id);
     }
+
+    public Article findByIdGreaterThan(Integer id){
+        return repository.findByIdGreaterThan(id);
+    }
 }
