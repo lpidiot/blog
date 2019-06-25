@@ -6418,3 +6418,7 @@ a,
     -webkit-line-clamp: 3;
     overflow: hidden;
 }
+
+.hand {
+    cursor: pointer;
+}

@@ -4,27 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 归档
- * @ClassName:archivesModel
+ * @ClassName:TagModel
  * @Description:TODO
  * @Version:1.0
  **/
-public class archivesModel {
-    private String day;
+public class TagModel {
+    private String tag;
     private List<article_s> articles=new ArrayList<>();
 
 
-    public archivesModel(String day, List<article_s> articles) {
-        this.day = day;
+    public TagModel(String tag, List<article_s> articles) {
+        this.tag = tag;
         this.articles = articles;
     }
 
-    public String getDay() {
-        return day;
+    public String getTag() {
+        return tag;
     }
 
-    public void setDay(String day) {
-        this.day = day;
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public List<article_s> getArticles() {

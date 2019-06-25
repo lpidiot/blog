@@ -16,6 +16,11 @@ public class article_s {
         this.time = time;
     }
 
+    public article_s(Integer id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
     public Integer getId() {
         return id;
     }
