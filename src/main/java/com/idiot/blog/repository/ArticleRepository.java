@@ -14,8 +14,6 @@ import java.util.List;
  **/
 @Repository
 public interface ArticleRepository extends CommonRepository<Article,Integer> {
-    public List<Article> findByIdLessThan(Integer id);
-    public List<Article> findByIdGreaterThan(Integer id);
     public List<Article> findAllByOrderByTimeDescIdDesc();
 
     @Query(value ="SELECT tag FROM article ORDER BY time DESC, id DESC",nativeQuery = true)

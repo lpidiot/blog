@@ -29,31 +29,24 @@ public class BlogController {
 
     @RequestMapping(value = "/detail")
     public void detail(Integer id, ModelMap map) {
-        List<Article> lessThan = articleService.findByIdLessThan(id);
-        List<Article> greaterThan = articleService.findByIdGreaterThan(id);
         map.put("article", articleService.findById(id));
-        if (lessThan.size() > 0) {
-            map.put("lessThan", lessThan.get(0));
-        }
-        if (greaterThan.size() > 0) {
-            map.put("greaterThan", greaterThan.get(0));
-        }
-
+        map.put("prevArticle", articleService.getPrev(id));
+        map.put("nextArticle", articleService.getNext(id));
     }
 
     @RequestMapping(value = "/index")
     public void index(PageModel page, ModelMap map) {
-        if(page.getPage()!=0){
-            page.setPage(page.getPage()-1);
+        if (page.getPage() != 0) {
+            page.setPage(page.getPage() - 1);
         }
-        List< Sort.Order> sort=new ArrayList<>();
-        sort.add(new Sort.Order(Sort.Direction.DESC,"time"));
-        sort.add(new Sort.Order(Sort.Direction.DESC,"id"));
+        List<Sort.Order> sort = new ArrayList<>();
+        sort.add(new Sort.Order(Sort.Direction.DESC, "time"));
+        sort.add(new Sort.Order(Sort.Direction.DESC, "id"));
         PageRequest pageRequest = PageRequest.of(page.getPage(), page.getSize(), new Sort(sort));
         Page<Article> article_page = articleService.findAll(pageRequest);
-        PageInfo pageInfo = new PageInfo(article_page.getTotalElements(), article_page.getNumber()+1, article_page.getTotalPages(), article_page.getNumberOfElements());
+        PageInfo pageInfo = new PageInfo(article_page.getTotalElements(), article_page.getNumber() + 1, article_page.getTotalPages(), article_page.getNumberOfElements());
         map.put("article_list", article_page.getContent());
-        map.put("pageInfo",pageInfo);
+        map.put("pageInfo", pageInfo);
     }
 
 
@@ -62,7 +55,7 @@ public class BlogController {
         //tagUtil tagUtil = new tagUtil(articleService.findAllByOrderByTimeDesc());
         TagUtilv2 tagUtil = new TagUtilv2();
 
-        map.put("tag_article_list", tagUtil.createTagArticle(articleService.findTag(),articleService.findAllByOrderByTimeDesc()));
+        map.put("tag_article_list", tagUtil.createTagArticle(articleService.findTag(), articleService.findAllByOrderByTimeDesc()));
         map.put("tags", tagUtil.getTags(articleService.findTag()));
     }
 

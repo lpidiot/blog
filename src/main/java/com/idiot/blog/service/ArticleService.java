@@ -22,13 +22,30 @@ public class ArticleService extends CommonService<Article, Integer> {
     @Autowired
     private ArticleRepository repository;
 
-    public List<Article> findByIdLessThan(Integer id) {
-        return repository.findByIdLessThan(id);
+    public Article getPrev(Integer id) {
+        List<Article> articles = repository.findAllByOrderByTimeDescIdDesc();
+        for(int i=0;i<articles.size();i++){
+            if(articles.get(i).getId()==id){
+                if(i>=1){
+                    return articles.get(i-1);
+                }
+            }
+        }
+        return null;
     }
 
-    public List<Article> findByIdGreaterThan(Integer id) {
-        return repository.findByIdGreaterThan(id);
+    public Article getNext(Integer id) {
+        List<Article> articles = repository.findAllByOrderByTimeDescIdDesc();
+        for(int i=0;i<articles.size();i++){
+            if(articles.get(i).getId()==id){
+                if((i+1)<=articles.size()){
+                    return articles.get(i+1);
+                }
+            }
+        }
+        return null;
     }
+
 
     public List<Article> findAllByOrderByTimeDesc() {
         return repository.findAllByOrderByTimeDescIdDesc();
