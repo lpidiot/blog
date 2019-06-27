@@ -6,9 +6,9 @@ package com.idiot.blog.web.model;
  * @Version:1.0
  **/
 public class article_s {
-    private Integer id;
-    private String title;
-    private String time;
+    private Integer id;     //文章索引暂时还是用id吧。。
+    private String title;   //标题
+    private String time;    //时间
 
     public article_s(Integer id, String title, String time) {
         this.id = id;

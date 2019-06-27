@@ -9,8 +9,8 @@ import java.util.List;
  * @Version:1.0
  **/
 public class TagModel {
-    private String tag;
-    private List<article_s> articles=new ArrayList<>();
+    private String tag; //标签
+    private List<article_s> articles=new ArrayList<>(); //标签对应的文章
 
 
     public TagModel(String tag, List<article_s> articles) {

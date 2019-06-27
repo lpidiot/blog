@@ -43,10 +43,10 @@ public class CommonService<T,ID> {
     public List<T> findAll(Specification spec){
         return repository.findAll(spec);
     }
-    public List<T> findAll(Specification spec, Pageable pageable) {
-        return repository.findAll(spec,pageable).getContent();
+    public Page<T> findAll(Specification spec, Pageable pageable) {
+        return repository.findAll(spec,pageable);
     }
-    public List<T> findAll(Pageable pageable) {
-        return repository.findAll(pageable).getContent();
+    public Page<T> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }

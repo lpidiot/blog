@@ -67,8 +67,7 @@ public class ManageController {
 
     @RequestMapping(value = "/article")
     public void article(ModelMap map) {
-
-        map.put("article_list", articleService.findAll());
+        map.put("article_list", articleService.findAllByOrderByTimeDesc());
     }
 
     @RequestMapping(value = "/page")

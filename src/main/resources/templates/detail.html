@@ -7,8 +7,50 @@
     <title>博客</title>
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
-    <link rel="stylesheet" type="text/css" href="statics/css/index.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="statics/css/index.css"/>
     <link rel="stylesheet" type="text/css" href="statics/css/detail.css"/>
+    <link rel="stylesheet" type="text/css" href="statics/css/widgets.css"/>
+    <link rel="stylesheet" type="text/css" href="statics/css/atelier-dune-dark.css"/>
+    <style type="text/css">
+        pre {
+            position: relative;
+            margin-bottom: 24px;
+            border-radius: 3px;
+            background: #f7f7f7;
+            overflow: hidden;
+        }
+
+        code {
+            display: block;
+            padding: 12px 24px;
+            overflow-y: auto;
+            font-family: 'Roboto Mono', Monaco, courier, monospace;
+            font-size: 13px;
+            color: #4d4d4c;
+        }
+
+        code.has-numbering {
+            margin-left: 21px;
+        }
+
+        .pre-numbering {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            padding: 13px 12px 12px 12px;
+            border-radius: 3px 0 0 3px;
+            text-align: right;
+            font-family: Menlo, monospace;
+            font-size: 0.8em;
+            color: #555;
+        }
+        .pre-numbering li{
+            list-style-type: none;
+            text-align: right;
+        }
+
+    </style>
 </head>
 
 <body class="home blog custom-background round-avatars" itemscope itemtype="http://schema.org/Organization">
@@ -43,41 +85,37 @@
                         <ul id="primary-menu" class="menu">
                             <li id="menu-item-17"
                                 class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-17">
-                                <a href="index.html">首页</a>
-                            </li>
-                            <li id="menu-item-173"
-                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-173">
-                                <a href="update.html">更新</a>
+                                <a href="index">首页</a>
                             </li>
                             <li id="menu-item-78"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-78">
-                                <a href="link.html">链接</a>
+                                <a href="tag">标签</a>
                             </li>
                             <li id="menu-item-252"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-252">
-                                <a href="archives.html">归档</a>
-                                <ul class="sub-menu">
-                                    <li id="menu-item-165"
-                                        class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-165">
-                                        <a href="">theme</a>
-                                    </li>
-                                    <li id="menu-item-163"
-                                        class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-163">
-                                        <a href="">Happen</a>
-                                    </li>
-                                    <li id="menu-item-924"
-                                        class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-924">
-                                        <a href="">WeWork</a>
-                                    </li>
-                                    <li id="menu-item-164"
-                                        class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-164">
-                                        <a href="">WordPress</a>
-                                    </li>
-                                </ul>
+                                <a href="archives">归档</a>
+                                <!-- <ul class="sub-menu">
+                                     <li id="menu-item-165"
+                                         class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-165">
+                                         <a href="">theme</a>
+                                     </li>
+                                     <li id="menu-item-163"
+                                         class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-163">
+                                         <a href="">Happen</a>
+                                     </li>
+                                     <li id="menu-item-924"
+                                         class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-924">
+                                         <a href="">WeWork</a>
+                                     </li>
+                                     <li id="menu-item-164"
+                                         class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-164">
+                                         <a href="">WordPress</a>
+                                     </li>
+                                 </ul>-->
                             </li>
                             <li id="menu-item-57"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">
-                                <a href="gustbook.html">留言</a>
+                                <a href="">关于</a>
                             </li>
                         </ul>
                     </div>
@@ -137,7 +175,7 @@
                 <header class="post_header">
                     <h1 class="post_title" data-th-text="${article.title}">给大家介绍一下</h1>
                 </header>
-                <div id="content" class="post-body js-gallery">
+                <div id="content" class="js-gallery">
                     内容...
                 </div>
                 <div class="meta split split--responsive cf">
@@ -156,6 +194,9 @@
     <svg id="upTriangleColor" width="100%" height="40" viewBox="0 0 100 102" preserveAspectRatio="none">
         <path d="M0 0 L50 100 L100 0 Z"></path>
     </svg>
+    <div class="scroll-top opacity">
+        <span class="arrow-icon"></span>
+    </div>
     <!--分享区-->
     <!--  <div id="social">
           <ul>
@@ -269,10 +310,11 @@
     </div>
 </div>
 
-<div class="p-header">
+<!--<div class="p-header">
     <figure class="p-image"
             style="background-image: url(statics/images/47fb3c_9afed6c259f94589881bd55376206366mv2_d_3840_5784_s_4_2.jpg);"></figure>
-</div>
+</div>-->
+
 <div class="navpost-part">
     <div id="NextPrevPosts">
         <div class="prev" data-aos="slide-right" data-aos-delay="1.5s"
@@ -311,23 +353,24 @@
             <path d="M48 48 L50 51 L52 48 L48 48" fill="rgba(255,255,255, 1)"></path>
         </svg>
     </div>
-    <div class="socialize" data-aos="zoom-in">
-        <li>
-            <a title="weibo" class="socialicon" href=""><i class="iconfont" aria-hidden="true">&#xe601;
-            </i></a>
-        </li>
-        <li class="wechat">
-            <a class="socialicon"><i class="iconfont">&#xe609;
-            </i></a>
-            <div class="wechatimg"><img src="statics/images/49D3746D-7519-B709-83E4-65BD1927C4E7.jpg"></div>
-        </li>
-        <li>
-            <a title="QQ" class="socialicon" href="" target="_blank"><i class="iconfont" aria-hidden="true">&#xe616;
-            </i></a>
-        </li>
-    </div>
+    <!--    <div class="socialize" data-aos="zoom-in">
+            <li>
+                <a title="weibo" class="socialicon" href=""><i class="iconfont" aria-hidden="true">&#xe601;
+                </i></a>
+            </li>
+            <li class="wechat">
+                <a class="socialicon"><i class="iconfont">&#xe609;
+                </i></a>
+                <div class="wechatimg"><img src="statics/images/49D3746D-7519-B709-83E4-65BD1927C4E7.jpg"></div>
+            </li>
+            <li>
+                <a title="QQ" class="socialicon" href="" target="_blank"><i class="iconfont" aria-hidden="true">&#xe616;
+                </i></a>
+            </li>
+        </div>-->
+
     <div class="cr">Copyright&copy; 2018. Design by
-        <a href="">17sucai</a>
+        <a href="">idiot</a>
     </div>
 </footer>
 
@@ -339,17 +382,59 @@
 <script type='text/javascript' src='statics/js/prism.js'></script>
 <script type='text/javascript' src='statics/js/gravatar.js'></script>
 <script src="statics/marked-master/marked.min.js"></script>
+<script type='text/javascript' src='statics/js/widgets.js'></script>
+<script src="http://cdn.bootcss.com/highlight.js/8.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.3.0/highlightjs-line-numbers.min.js"></script>
 <script type="text/javascript" data-th-inline="javascript">
     window.onscroll = function () {
         var scrollTop = document.body.scrollTop;
         if (scrollTop >= 200) {
             document.getElementById("NextPrevPosts").style.display = "none"
+
         } else {
             document.getElementById("NextPrevPosts").style.display = "block"
         }
     };
-    var content = ('[[${article.content}]]');
-    document.getElementById('content').innerHTML = marked(content);
+
+
+    var rendererMD = new marked.Renderer();
+    marked.setOptions({
+        renderer: rendererMD,
+        gfm: true,
+        tables: true,
+        breaks: false,
+        pedantic: false,
+        sanitize: false,
+        smartLists: true,
+        smartypants: false
+    });
+
+    marked.setOptions({
+        highlight: function (code) {
+
+            return hljs.highlightAuto(code).value;
+        }
+    });
+
+    document.getElementById('content').innerHTML = marked([[${article.content}]]);
+
+    //console.log([[${article.content}]]);
+    //document.getElementById('content').innerHTML = marked([[${article.content}]]);
+    //numbering for pre>code blocks
+    $('pre code').each(function () {
+        var lines = $(this).text().split('\n').length ;
+
+        var $numbering = $('<ul/>').addClass('pre-numbering');
+        $(this)
+            .addClass('has-numbering')
+            .parent()
+            .append($numbering);
+        for (var i = 1; i <= lines; i++) {
+            $numbering.append($('<li/>').text(i));
+        }
+    });
+
+
 </script>
 </body>
 

@@ -707,11 +707,11 @@ hr {
 blockquote {
     overflow: hidden
 }
-
+/*
 ul,
 ol {
     list-style: none
-}
+}*/
 
 dt {
     font-weight: bold
@@ -754,10 +754,7 @@ td {
     padding: 1rem .5rem
 }
 
-ol,
-ul {
-    list-style: none
-}
+
 
 img {
     max-width: 100%;
@@ -1927,7 +1924,7 @@ input[type="search"]::-webkit-search-decoration {
     border-radius: 3px
 }
 
-.post-body ul li,
+/*.post-body ul li,
 .post-body ol li {
     font-size: 15px;
     line-height: 1.75;
@@ -1954,7 +1951,7 @@ input[type="search"]::-webkit-search-decoration {
     font-size: 0.6875rem;
     content: "\e60d";
     font-family: iconfont
-}
+}*/
 
 .post-body ol {
     counter-reset: ol-counter

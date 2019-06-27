@@ -2,9 +2,12 @@ package com.idiot.blog.web.controller;
 
 import com.idiot.blog.entity.Article;
 import com.idiot.blog.service.ArticleService;
-import com.idiot.blog.web.model.archivesModel;
-import com.idiot.blog.web.model.article_s;
+import com.idiot.blog.utils.PageInfo;
+import com.idiot.blog.utils.TagUtilv2;
+import com.idiot.blog.web.model.PageModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,15 +42,28 @@ public class BlogController {
     }
 
     @RequestMapping(value = "/index")
-    public void index(ModelMap map) {
-        map.put("article_list", articleService.findAll());
+    public void index(PageModel page, ModelMap map) {
+        if(page.getPage()!=0){
+            page.setPage(page.getPage()-1);
+        }
+        List< Sort.Order> sort=new ArrayList<>();
+        sort.add(new Sort.Order(Sort.Direction.DESC,"time"));
+        sort.add(new Sort.Order(Sort.Direction.DESC,"id"));
+        PageRequest pageRequest = PageRequest.of(page.getPage(), page.getSize(), new Sort(sort));
+        Page<Article> article_page = articleService.findAll(pageRequest);
+        PageInfo pageInfo = new PageInfo(article_page.getTotalElements(), article_page.getNumber()+1, article_page.getTotalPages(), article_page.getNumberOfElements());
+        map.put("article_list", article_page.getContent());
+        map.put("pageInfo",pageInfo);
     }
 
 
     @RequestMapping(value = "/tag")
     public void tag(ModelMap map) {
-        tagUtil tagUtil = new tagUtil(articleService.findAll());
-        map.put("tag_article_list", tagUtil.getTagModel_list());
+        //tagUtil tagUtil = new tagUtil(articleService.findAllByOrderByTimeDesc());
+        TagUtilv2 tagUtil = new TagUtilv2();
+
+        map.put("tag_article_list", tagUtil.createTagArticle(articleService.findTag(),articleService.findAllByOrderByTimeDesc()));
+        map.put("tags", tagUtil.getTags(articleService.findTag()));
     }
 
     @RequestMapping(value = "/archives")

@@ -4,6 +4,7 @@ import com.idiot.blog.common.CommonEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.util.List;
 
 /**
  * @ClassName:Article
@@ -91,4 +92,10 @@ public class Article extends CommonEntity {
     public void setAccess(Integer access) {
         this.access = access;
     }
+
+  /*  public List<String> getFlagTag(){
+        if(tag.contains(",")){
+
+        }
+    }*/
 }

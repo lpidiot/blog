@@ -31,7 +31,11 @@ public class ArticleService extends CommonService<Article, Integer> {
     }
 
     public List<Article> findAllByOrderByTimeDesc() {
-        return repository.findAllByOrderByTimeDesc();
+        return repository.findAllByOrderByTimeDescIdDesc();
+    }
+
+    public List<String> findTag(){
+     return repository.findTag();
     }
 
     public List<archivesModel> createArchives(List<Article> article_list) {
@@ -65,8 +69,4 @@ public class ArticleService extends CommonService<Article, Integer> {
         }
         return archivesModel_list;
     }
-
-
-
-
 }

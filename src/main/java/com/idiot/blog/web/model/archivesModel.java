@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 归档
+ * 归档模型
  * @ClassName:archivesModel
  * @Description:TODO
  * @Version:1.0
  **/
 public class archivesModel {
-    private String day;
-    private List<article_s> articles=new ArrayList<>();
+    private String day; //日期
+    private List<article_s> articles=new ArrayList<>(); //日期对应的文章
 
 
     public archivesModel(String day, List<article_s> articles) {

@@ -8,6 +8,7 @@
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
     <link rel="stylesheet" type="text/css" href="statics/css/index.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="statics/css/widgets.css"/>
     <style type="text/css">
         .container {
             display: flex;
@@ -33,7 +34,6 @@
             line-height: 28px;
             margin: 0 4px;
             margin-bottom: 8px;
-            background: #63a35c;
             display: inline-block;
             border-radius: 4px;
             padding: 0 10px;
@@ -44,6 +44,15 @@
         .tag1 {
             background-color: rgba(0, 133, 161, 0.8);
         }
+
+        .tag2 {
+            background: #63a35c;
+        }
+
+        .tag3 {
+            background: #9cb2e1;
+        }
+
 
         .tag-list {
             margin-left: 1em;
@@ -115,21 +124,35 @@
                                 class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-17">
                                 <a href="index">首页</a>
                             </li>
-                            <li id="menu-item-173"
-                                class="menu-item menu-item-type-post_type menu-item-object-page menu-item-173">
-                                <a href="tag">标签</a>
-                            </li>
                             <li id="menu-item-78"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-78">
-                                <a href="link.html">链接</a>
+                                <a href="tag">标签</a>
                             </li>
                             <li id="menu-item-252"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-252">
                                 <a href="archives">归档</a>
+                                <!-- <ul class="sub-menu">
+                                     <li id="menu-item-165"
+                                         class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-165">
+                                         <a href="">theme</a>
+                                     </li>
+                                     <li id="menu-item-163"
+                                         class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-163">
+                                         <a href="">Happen</a>
+                                     </li>
+                                     <li id="menu-item-924"
+                                         class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-924">
+                                         <a href="">WeWork</a>
+                                     </li>
+                                     <li id="menu-item-164"
+                                         class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-164">
+                                         <a href="">WordPress</a>
+                                     </li>
+                                 </ul>-->
                             </li>
                             <li id="menu-item-57"
                                 class="menu-item menu-item-type-post_type menu-item-object-page menu-item-57">
-                                <a href="gustbook.html">留言</a>
+                                <a href="">关于</a>
                             </li>
                         </ul>
                     </div>
@@ -173,27 +196,21 @@
 </header>
 <div id="main" class="content">
     <div class="container">
-        <div class="tag_box">
-            <a class="tag tag1">aaa</a>
-            <a class="tag">aaa</a>
-            <a class="tag tag1">aaa</a>
-            <a class="tag">aaa</a>
-            <a class="tag tag1">aaa</a>
-            <a class="tag">aaa</a>
-            <a class="tag tag1">aaa</a>
-            <a class="tag">aaa</a>
-            <a class="tag">aaa</a>
-            <a class="tag">aaa</a>
+        <div id="tag-group" class="tag_box">
+
         </div>
 
         <div class="tag-list" data-th-each="tag_article:${tag_article_list}">
-            <h3 class="tag-name" data-th-text="${tag_article.tag}">
+            <h3 class="tag-name" data-th-id="${tag_article.tag}" data-th-text="${tag_article.tag}">
                 标签
             </h3>
             <ul class="tag-preview" data-th-each="article: ${tag_article.articles}">
-                <li><a href="" data-th-text="${article.title}">aa</a></li>
+                <li><a data-th-href="${'detail?id='+article.id}" data-th-text="${article.title}">aa</a></li>
             </ul>
         </div>
+    </div>
+    <div class="scroll-top opacity">
+        <span class="arrow-icon"></span>
     </div>
 </div>
 
@@ -213,16 +230,33 @@
     </div>
     <div class="cr">
         Copyright&copy;2018. Design by
-        <a href="">17sucai</a>
+        <a href="">idiot</a>
     </div>
     <script type='text/javascript' src='statics/js/jquery.min.js'></script>
     <script type='text/javascript' src='statics/js/plugins.js'></script>
     <script type='text/javascript' src='statics/js/script.js'></script>
     <script type='text/javascript' src='statics/js/particles.js'></script>
     <script type='text/javascript' src='statics/js/aos.js'></script>
+    <script type='text/javascript' src='statics/js/widgets.js'></script>
 </footer>
 </body>
 <script type="application/javascript" data-th-inline="javascript">
-console.log(JSON.parse('[[${tag_article_list}]]'));
+    // console.log(JSON.parse('[[${tag_article_list}]]'));
+    var tags = JSON.parse('[[${tags}]]');
+    console.log(tags);
+    if (tags.length > 0) {
+        var tag_group = '';
+        for (var i in tags) {
+            var num = getRandom();
+            var color = 'tag' + num;
+            tag_group += '<a href="#' + tags[i] + '" class="tag ' + color + '">' + tags[i] + '</a>';
+        }
+        $('#tag-group').html(tag_group);
+
+    }
+
+    function getRandom() {
+        return Math.floor(Math.random() * 3 + 1);
+    }
 </script>
 </html>
