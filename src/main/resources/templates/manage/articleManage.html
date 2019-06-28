@@ -2,84 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>管理首页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="notebook,A wastepaper basket">
+    <title>文章管理</title>
     <style type="text/css">
-        body {
-            font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            -webkit-text-size-adjust: none;
-            position: relative;
+
+        .main {
+            padding: 2em 1em;
+            margin: 0 auto;
             height: 100%;
-            margin: 0;
-            color: #34495e;
-            font-size: 16px;
+            max-width: 980px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.4s;
         }
 
-        .hand {
-            cursor: pointer;
-        }
-
-        .articleBox {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            margin: 25px 0;
-        }
-
-        .article {
-            margin: 20px 80px;
-        }
-
-        .article-tit {
-            color: #34495e;
-
-        }
-
-        .article-tit h2 {
-            font-size: 1.6em;
-            font-weight: bold;
-            margin: 0;
-        }
-
-        .article-tag p {
-            font-family: 'Roboto Mono', Monaco, courier, monospace;
-            font-size: 0.8em;
-            display: inline-block;
-            background-color: #f8f8f8;
-            color: #e96900;
-            padding: 3px 5px;
-            margin: 0 2px 5px 0;
-            border-radius: 2px;
-            white-space: nowrap;
-        }
-
-        .article-time {
-            color: #7f8c8d;
-            margin: 10px 0;
-            font-size: 0.9em;
-        }
-
-        .article-content {
-            font-size: 16px;
-            color: #34495e;
-            font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
-            margin: 8px 0;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 3;
-            overflow: hidden;
-
-        }
-
-        .article-tools a {
-            text-decoration: none;
-            color: #42b983;
-            cursor: pointer;
-            font-weight: 600;
-            display: inline-block;
-            transition: all 0.3s;
-            margin-right: 20px;
+        @media screen and (max-width: 480px) {
+            body{
+                font-size: 15px;
+            }
         }
 
     </style>
@@ -92,8 +34,8 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="index">开始记录</a></li>
-                <li><a href="#">文章管理</a></li>
+                <li><a href="recode">开始记录</a></li>
+                <li class="active"><a href="#">文章管理</a></li>
                 <li class="dropdown"><a class="dropdown-toggle hand" data-toggle="dropdown"> 数据管理<span
                         class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -107,12 +49,12 @@
     </div>
 </nav>
 <div id="showInfo" style="display: none;align-items: center;flex-direction: column;z-index: 1000;">
-<div id="alertView" class="alert" style="width: 40%;">
-    <a href="#" class="close" onclick="hiddenInfo();">&times;</a>
-    <strong id="info"></strong>
+    <div id="alertView" class="alert" style="width: 40%;">
+        <a href="#" class="close" onclick="hiddenInfo();">&times;</a>
+        <strong id="info"></strong>
+    </div>
 </div>
-</div>
-<div class="container">
+<div class="main" style="transform: translateY(0px); opacity: 1;">
     <div id="content"></div>
     <div id="myArticle" class="articleBox">
 
@@ -152,10 +94,9 @@
 
 
 <link rel="stylesheet" href="../statics/bootstrap-3.3.7-dist/css/bootstrap.css">
+<link rel="stylesheet" href="../statics/css/manage.css" media="all">
 <script src="../statics/js/jquery.min.js"></script>
 <script src="../statics/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
-
-
 
 
 <script data-th-inline="javascript">
@@ -171,16 +112,25 @@
                 //先清空容器
                 $('#myArticle').html('');
                 for (var i in result) {
+                    var tags = result[i].flagTag;
+                    var tagHtml = '<div class="article-tag">';
+                    for (var j in tags) {
+                        tagHtml += '<p class="hand">' + tags[j] + '</p>';
+                    }
+                    tagHtml += '</div>';
+                    var sketch = result[i].sketch;
+                    sketch = sketch.replace(/</g, ' ').replace(/>/g, ' ');
                     var htm =
                         '<div class="article">' +
                         '<div class="article-tit"><h2>' + result[i].title + '</h2></div>' +
                         '<div class="article-time">' + result[i].time + '</div>' +
-                        '<div class="article-tag"><p class="hand">' + result[i].tag + '</p></div>' +
-                        '<div class="article-content">' + result[i].sketch + '</div>' +
-                        '<div class="article-tools"><a class="more" href="edit?id=' + result[i].id + '">修改</a>' +
+                        tagHtml +
+                        '<div class="article-content">' + sketch + '</div>' +
+                        '<div class="article-tools"><a class="more" href="recode?id=' + result[i].id + '">修改</a>' +
                         '<a id="delete" onclick="deleteArticle(' + result[i].id + ')">删除</a></div>' +
                         '</div>';
                     $('#myArticle').append(htm);
+                    htm = null;
                 }
             },
             fail: function (result) {
@@ -197,16 +147,16 @@
             data: {id: id},
             success: function (result) {
                 console.log(result);
-                if(result.state) {
+                if (result.state) {
                     $('#alertView').removeClass('alert-danger');
                     $('#alertView').addClass('alert-success');
                     getArticle();
-                }else{
+                } else {
                     $('#alertView').removeClass('alert-success');
                     $('#alertView').addClass('alert-danger');
                 }
                 $('#info').html(result.content);
-                $('#showInfo').css('display','flex');
+                $('#showInfo').css('display', 'flex');
 
             },
             fail: function (result) {
@@ -214,8 +164,9 @@
             }
         })
     }
-function hiddenInfo() {
-    $('#showInfo').css('display','none');
-}
+
+    function hiddenInfo() {
+        $('#showInfo').css('display', 'none');
+    }
 </script>
 </html>

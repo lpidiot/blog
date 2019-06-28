@@ -38,7 +38,7 @@ public class ArticleService extends CommonService<Article, Integer> {
         List<Article> articles = repository.findAllByOrderByTimeDescIdDesc();
         for(int i=0;i<articles.size();i++){
             if(articles.get(i).getId()==id){
-                if((i+1)<=articles.size()){
+                if(articles.size()>i+1){
                     return articles.get(i+1);
                 }
             }

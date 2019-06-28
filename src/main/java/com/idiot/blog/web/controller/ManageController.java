@@ -26,8 +26,8 @@ public class ManageController {
     @Autowired
     private ArticleService articleService;
 
-    @RequestMapping(value = "/index")
-    public void index(Integer id,ModelMap map) {
+    @RequestMapping(value = "/recode")
+    public void recode(Integer id,ModelMap map) {
         if(id!=null){
             map.put("article",articleService.findById(id));
         }
@@ -65,15 +65,15 @@ public class ManageController {
         return hashMap;
     }
 
-    @RequestMapping(value = "/article")
-    public void article(ModelMap map) {
+    @RequestMapping(value = "/articleManage")
+    public void articleManage(ModelMap map) {
         map.put("article_list", articleService.findAllByOrderByTimeDesc());
     }
 
     @RequestMapping(value = "/page")
     @ResponseBody
     public Object page() {
-        return articleService.findAll();
+        return articleService.findAllByOrderByTimeDesc();
     }
 
 

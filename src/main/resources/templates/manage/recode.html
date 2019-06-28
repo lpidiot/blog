@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>管理首页</title>
-    <style type="text/css">
-        .hand {
-            cursor: pointer;
-        }
-    </style>
+    <link type="text/css" href="../statics/css/manage.css">
 </head>
 <body>
 <nav class="navbar navbar-default navbar-static-top navbar-inverse">
@@ -17,8 +13,8 @@
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#">开始记录</a></li>
-                <li><a href="article">文章管理</a></li>
+                <li class="active"><a href="#">开始记录</a></li>
+                <li><a href="articleManage">文章管理</a></li>
                 <li class="dropdown"><a class="dropdown-toggle hand" data-toggle="dropdown"> 数据管理<span
                         class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -58,7 +54,7 @@
 <script src="../statics/marked-master/marked.min.js"></script>
 <script src="../statics/editor.md-master/editormd.js"></script>
 
-<script type="application/javascript">
+<script type="application/javascript" data-th-inline="javascript">
     var editor;
     editor = editormd("editormd", {
         width: "99%",
@@ -134,7 +130,7 @@
                 }
                 // 替换选中文本，如果没有选中文本，则直接插入
                 cm.replaceSelection('插入hexo头' + '\r\n' + '\r\n');
-                console.log(cm);
+                //console.log(cm);
 
                 // this == 当前editormd实例
                 //console.log("testIcon =>", this, cm, icon, cursor, selection);
@@ -143,11 +139,12 @@
                 $('#myModal').modal('show');
             },
             submit: function (cm, icon, cursor, selection) {
-                var title = $('#title').val();
-                var tag = $('#title').val();
-                var category = $('#title').val();
+                var id = $('input[name="id"]').val();
+                var title = $('input[name="title"]').val();
+                var tag = $('input[name="tag"]').val();
+                //var category = $('#category').val();
                 var content = $('.editormd-markdown-textarea').val();
-                if (title == '') {
+                if (title == ''||tag=='') {
                     alert('null');
                     return;
                 }
@@ -158,7 +155,6 @@
                     data: {
                         title: title,
                         tag: tag,
-                        category: category,
                         content: content
                     },
                     success: function (result) {
@@ -168,8 +164,6 @@
 
                     }
                 });
-
-
             }
         },
 
@@ -193,6 +187,11 @@
             //this.resize("100%", 640);
         }
     });
+
+    var article = [[${article}]];
+    if (article != null) {
+        $('.editormd-markdown-textarea').val(article.content);
+    }
 </script>
 
 
@@ -207,18 +206,19 @@
             <div class="modal-body">
                 <div style="margin: 0 30px;">
                     <form id="detailForm" class="form-horizontal">
+                        <input class="form-control" id="myId" name="id"
+                               data-th-value="${article!=null?article.id:''}"/>
                         <div class="form-group">
                             <label>标题</label>
-                            <input class="form-control" id="title" name="title"/>
+                            <input class="form-control" id="title" name="title"
+                                   data-th-value="${article!=null?article.title:''}"/>
                         </div>
                         <div class="form-group">
                             <label>标签</label>
-                            <input class="form-control" id="tag" name="tag"/>
+                            <input class="form-control" id="tag" name="tag"
+                                   data-th-value="${article!=null?article.tag:''}"/>
                         </div>
-                        <div class="form-group">
-                            <label>分类</label>
-                            <input class="form-control" id="category" name="category"/>
-                        </div>
+
                     </form>
                 </div>
             </div>

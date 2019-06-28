@@ -4,6 +4,8 @@ import com.idiot.blog.common.CommonEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Transient;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -93,9 +95,12 @@ public class Article extends CommonEntity {
         this.access = access;
     }
 
-  /*  public List<String> getFlagTag(){
-        if(tag.contains(",")){
-
+    @Transient
+    public List<String> getFlagTag() {
+        List<String> list = new ArrayList<>();
+        for (String s : tag.split(",")) {
+            list.add(s);
         }
-    }*/
+        return list;
+    }
 }
