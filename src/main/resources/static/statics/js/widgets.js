@@ -22,6 +22,8 @@ function createPage(pageInfo) {
     $('#pagination').html(pagination);
 }
 
+
+
 function isPC() {
     var userDevice = navigator.userAgent;
     var agents = ["Android", "iPhone",

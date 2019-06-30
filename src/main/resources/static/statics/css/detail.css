@@ -2584,6 +2584,17 @@ nav#comments-navi {
 	background: #eee;
 	border-radius: 4px
 }
+.comment-respond .submit{
+	width: 84px;
+	float: right;
+	height: 70px;
+	line-height: 20px;
+	padding: 0;
+	text-transform: uppercase;
+	color: #888;
+	background: #eee;
+	border-radius: 4px
+}
 
 .comment-respond input[type=submit]:hover {
 	background: rgba(0, 0, 0, 0.6);

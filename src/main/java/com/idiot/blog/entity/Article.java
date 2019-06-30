@@ -1,10 +1,9 @@
 package com.idiot.blog.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.idiot.blog.common.CommonEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +22,8 @@ public class Article extends CommonEntity {
     private String category;         //分类
     private String tag;              //标签
     private Integer access = 0;      //访问数
+    @JsonIgnore
+    private List<Comment> comments = new ArrayList<>();         //评论
 
     public String getType() {
         return type;
@@ -102,5 +103,14 @@ public class Article extends CommonEntity {
             list.add(s);
         }
         return list;
+    }
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
