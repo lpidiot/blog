@@ -18,7 +18,7 @@
         }
 
         @media screen and (max-width: 480px) {
-            body{
+            body {
                 font-size: 15px;
             }
         }
@@ -51,6 +51,13 @@
     <div id="alertView" class="alert" style="width: 40%;">
         <a href="#" class="close" onclick="hiddenInfo();">&times;</a>
         <strong id="info"></strong>
+    </div>
+</div>
+<div id="ale" style="display: flex;align-items: center;flex-direction: column;z-index: 1000;"
+     data-th-if="${message!=null}">
+    <div class="alert alert-success" style="width: 40%;">
+        <a href="#" class="close" onclick="hiddenInfo2();">&times;</a>
+        <strong data-th-text="${message}"></strong>
     </div>
 </div>
 <div class="main" style="transform: translateY(0px); opacity: 1;">
@@ -166,6 +173,10 @@
 
     function hiddenInfo() {
         $('#showInfo').css('display', 'none');
+    }
+
+    function hiddenInfo2() {
+        $('#ale').css('display', 'none');
     }
 </script>
 </html>

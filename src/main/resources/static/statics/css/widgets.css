@@ -27,8 +27,32 @@
     box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.24);
     opacity: 0;
 }
+.scroll-top2 {
+    cursor: pointer;
+    position: fixed;
+    box-sizing: border-box;
+    right: 6em;
+    bottom: 50px;
+    width: 40px;
+    height: 40px;
+    padding: 5px;
+    background-color: #eee;
+    border-radius: 20px;
+    transform: translate(80px, 0);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.12), 0 3px 3px 0 rgba(0, 0, 0, 0.24);
+    z-index: 100000;
+}
+
 .arrow-icon{
     background-image: url("../images/top.png");
+    width: 30px;
+    height: 30px;
+    display: block;
+    background-size: contain;
+}
+.comment-icon{
+    background-image: url("../images/comment.png");
     width: 30px;
     height: 30px;
     display: block;

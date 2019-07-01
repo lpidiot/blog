@@ -54,6 +54,21 @@ public class BlogController {
         map.put("pageInfo", pageInfo);
     }
 
+    @RequestMapping(value = "/getArticle")
+    @ResponseBody
+    public List<Article> getArticle(PageModel page, ModelMap map) {
+        if (page.getPage() != 0) {
+            page.setPage(page.getPage() - 1);
+        }
+        List<Sort.Order> sort = new ArrayList<>();
+        sort.add(new Sort.Order(Sort.Direction.DESC, "time"));
+        sort.add(new Sort.Order(Sort.Direction.DESC, "id"));
+        PageRequest pageRequest = PageRequest.of(page.getPage(), page.getSize(), new Sort(sort));
+        Page<Article> article_page = articleService.findAll(pageRequest);
+        //System.err.println(article_page.getContent().get(0).getComments());
+        return article_page.getContent();
+    }
+
 
     @RequestMapping(value = "/tag")
     public void tag(ModelMap map) {
@@ -73,8 +88,10 @@ public class BlogController {
     @RequestMapping(value = "/addComment")
     @ResponseBody
     public Object addComment(Comment model, Integer articleId) {
-        //System.out.println(comment.getNickName());
-
+        System.out.println(model.getContent());
+        if(model.getNickName()==null||model.getNickName()==""){
+            model.setNickName("匿名");
+        }
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         model.setTime(format.format(new Date()));
         model.setArticle(articleService.findById(articleId));
@@ -106,4 +123,13 @@ public class BlogController {
         hashMap.put("comments",comments_page.getContent());
         return hashMap;
     }
+
+
+    @RequestMapping(value = "/detail2")
+    public void detail2(Integer id, ModelMap map) {
+        map.put("article", articleService.findById(id));
+        map.put("prevArticle", articleService.getPrev(id));
+        map.put("nextArticle", articleService.getNext(id));
+    }
+
 }

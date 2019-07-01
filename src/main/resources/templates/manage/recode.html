@@ -146,21 +146,27 @@
                 var tag = $('input[name="tag"]').val();
                 //var category = $('#category').val();
                 var content = $('.editormd-markdown-textarea').val();
-                if (title == ''||tag=='') {
-                    alert('null');
+                if(content==''){
+                    alert('内容为空');
                     return;
                 }
+                if (title == ''||tag=='') {
+                    $('#myModal').modal('show');
+                    return;
+                }
+
                 $.ajax({
                     url: 'save',
                     type: 'post',
                     cache: false,
                     data: {
+                        id:id,
                         title: title,
                         tag: tag,
                         content: content
                     },
                     success: function (result) {
-                        console.log(result)
+                        window.location.href="articleManage?flag=100";
                     },
                     fail: function (result) {
 
@@ -194,6 +200,18 @@
     if (article != null) {
         $('.editormd-markdown-textarea').val(article.content);
     }
+
+    function judge() {
+        var title = $('input[name="title"]').val();
+        var tag = $('input[name="tag"]').val();
+        //var category = $('#category').val();
+        var content = $('.editormd-markdown-textarea').val();
+        if (title == ''||tag=='') {
+            alert('标题和标签必填');
+            return;
+        }
+        $('#myModal').modal('hide');
+    }
 </script>
 
 
@@ -208,7 +226,7 @@
             <div class="modal-body">
                 <div style="margin: 0 30px;">
                     <form id="detailForm" class="form-horizontal">
-                        <input class="form-control" id="myId" name="id"
+                        <input style="display: none;" class="form-control" id="myId" name="id"
                                data-th-value="${article!=null?article.id:''}"/>
                         <div class="form-group">
                             <label>标题</label>
@@ -226,7 +244,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-primary" onclick="judge()">Save changes</button>
             </div>
         </div>
     </div>

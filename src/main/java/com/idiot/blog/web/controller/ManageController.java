@@ -27,26 +27,44 @@ public class ManageController {
     private ArticleService articleService;
 
     @RequestMapping(value = "/recode")
-    public void recode(Integer id,ModelMap map) {
-        if(id!=null){
-            map.put("article",articleService.findById(id));
+    public void recode(Integer id, ModelMap map) {
+        if (id != null) {
+            map.put("article", articleService.findById(id));
         }
     }
 
     @RequestMapping(value = "/save")
     @ResponseBody
-    public void save(ArticleModel model) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        model.setTime(dateFormat.format(new Date()));
-        String content = model.getContent();
-        if (content.length() > 147) {
-            model.setSketch(content.substring(0, 147) + "...");
-        } else {
-            model.setSketch(content + "...");
+    public Object save(ArticleModel model) {
+        HashMap<String, Object> hashMap = new HashMap<>();
+        try {
+            Article article;
+            String content = model.getContent();
+            if (content.length() > 147) {
+                model.setSketch(content.substring(0, 147) + "...");
+            } else {
+                model.setSketch(content + "...");
+            }
+
+
+            if (model.getId() == null) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                model.setTime(dateFormat.format(new Date()));
+                article = new Article();
+                BeanUtils.copyProperties(model, article);
+            } else {
+                article = articleService.findById(model.getId());
+                BeanUtils.copyProperties(model, article, "time");
+            }
+            articleService.save(article);
+            hashMap.put("state", true);
+            hashMap.put("content", "保存成功");
+        } catch (Exception e) {
+            System.out.println(e);
+            hashMap.put("state", false);
+            hashMap.put("content", "保存失败");
         }
-        Article article = new Article();
-        BeanUtils.copyProperties(model, article);
-        articleService.save(article);
+        return hashMap;
     }
 
     @RequestMapping(value = "/delete")
@@ -66,7 +84,10 @@ public class ManageController {
     }
 
     @RequestMapping(value = "/articleManage")
-    public void articleManage(ModelMap map) {
+    public void articleManage(String flag,ModelMap map) {
+        if(flag!=null){
+            map.put("message","操作成功");
+        }
         map.put("article_list", articleService.findAllByOrderByTimeDesc());
     }
 

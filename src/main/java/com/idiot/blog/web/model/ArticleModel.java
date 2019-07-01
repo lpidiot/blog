@@ -8,6 +8,7 @@ import java.util.Date;
  * @Version:1.0
  **/
 public class ArticleModel {
+    private Integer id;
     private String type;             //文章格式(备用)
     private String title;            //文章标题
     private String time;             //时间
@@ -16,6 +17,14 @@ public class ArticleModel {
     private String category;         //分类
     private String tag;              //标签
     private Integer access = 0;      //访问数
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getType() {
         return type;

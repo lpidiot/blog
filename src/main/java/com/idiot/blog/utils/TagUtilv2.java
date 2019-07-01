@@ -9,13 +9,14 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * 将文章转化为按标签分类的格式
  * @ClassName:TagUtilv2
  * @Description:TODO
  * @Version:1.0
  **/
 public class TagUtilv2 {
-    private List<String> tags=new ArrayList<>();
-    List<TagModel> TagModels=new ArrayList<>();
+    private List<String> tags=new ArrayList<>();    //标签列表
+    List<TagModel> TagModels=new ArrayList<>();     //目标列表
     private List<List<article_s>> article_s_lists=new ArrayList<>(); //标签-文章列表
     private int article_s_index = 0;   //标签-文章列表索引(article_s_lists)
 
