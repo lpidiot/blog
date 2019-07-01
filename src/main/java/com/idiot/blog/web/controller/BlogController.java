@@ -88,14 +88,17 @@ public class BlogController {
     @RequestMapping(value = "/addComment")
     @ResponseBody
     public Object addComment(Comment model, Integer articleId) {
-        System.out.println(model.getContent());
+        //System.out.println(model.getContent());
         if(model.getNickName()==null||model.getNickName()==""){
             model.setNickName("匿名");
         }
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         model.setTime(format.format(new Date()));
-        model.setArticle(articleService.findById(articleId));
+        Article article = articleService.findById(articleId);
+        model.setArticle(article);
         commentService.save(model);
+        article.setAccess(article.getAccess()+1);
+        articleService.save(article);
         return "ok";
     }
 

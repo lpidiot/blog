@@ -28,7 +28,9 @@ public class TagUtilv2 {
                 }else{
                     String[] flag=tag.split(",");
                     for(String s:flag){
-                        tags.add(s);
+                        if(!tags.contains(s)){
+                            tags.add(s);
+                        }
                     }
                 }
             }

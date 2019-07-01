@@ -183,7 +183,7 @@
                 <div class="meta split split--responsive cf">
                     <div class="split__title">
                         <time data-th-text="${article.time}">2017/10/02</time>
-                        <span class=""><a href="" rel="tag">主题</a></span>
+                        <span data-th-each="flagTag:${article.flagTag}"><a href="" rel="tag" data-th-text="${flagTag}">主题</a></span>
                     </div>
                     <!--<div id="social-share"><span class="entypo-share"><i class="iconfont">&#xe614;</i>分享</span></div>-->
                     <div class="slide">
@@ -221,7 +221,7 @@
         <div class="comment-area">
             <section class="comments">
                 <div class="comments-main">
-                    <div id="comments-list-title"><span>30</span> 条评论</div>
+                    <div id="comments-list-title"><span data-th-text="${article.access}">30</span> 条评论</div>
                     <div id="loading-comments">
                         <div class="host">
                             <div class="loading loading-0"></div>
@@ -369,7 +369,7 @@
             </li>
         </div>-->
 
-    <div class="cr">Copyright&copy; 2018. Design by
+    <div class="cr">Copyright&copy; 2019. Design by
         <a href="">idiot</a>
     </div>
 </footer>
@@ -411,7 +411,6 @@
 
     marked.setOptions({
         highlight: function (code) {
-
             return hljs.highlightAuto(code).value;
         }
     });
